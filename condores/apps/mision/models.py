@@ -45,7 +45,7 @@ class catSolicitante(BaseModel):
     def __str__(self):
         return f'Solicitante {self.id}: {self.nombre}'
 
-class catServicio(BaseModel):
+class catServicio(BaseModel):#TipoServicio
     nombre = models.CharField(max_length=255)
     historical = HistoricalRecords()
 
@@ -119,8 +119,168 @@ class catTipoE(BaseModel):
         verbose_name_plural = 'Modelo tipo empleado'
 
     def __str__(self):
-        return f'Catalo de sexo {self.id}: {self.nombre}'
+        return f'catalogo tipo empleado {self.id}: {self.nombre}'
 
+class catInstitucion(BaseModel):
+    nombre = models.CharField(max_length=255)
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo catalogo instituciones'
+        verbose_name_plural = 'Modelo catalogo instituciones'
+
+    def __str__(self):
+        return f'Catalo de instituciones {self.id}: {self.nombre}'  
+
+class persona(BaseModel):
+    nombre = models.CharField(max_length=255)
+    apellido1 = models.CharField(max_length=255)
+    apellido2 = models.CharField(max_length=255)
+    curp = models.CharField(max_length=255)
+    rfc = models.CharField(max_length=255)
+    cuip = models.CharField(max_length=255)
+    cuip = models.CharField(max_length=255)
+    fechaNacimiento = models.DateField(null=True)
+    historical = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo persona'
+        verbose_name_plural = 'Modelo tipo persona'
+
+    def __str__(self):
+        return f'persona {self.id}: {self.nombre}'
+
+class licencia_persona(BaseModel):
+    numeroLicencia = models.CharField(max_length=255)
+    vigencia = models.DateField(null=True)
+    tipoLicencia = models.CharField(max_length=255)
+    historical = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo licencia_persona'
+        verbose_name_plural = 'Modelo tipo licencia_persona'
+
+    def __str__(self):
+        return f'licencia persona {self.id}: {self.numeroLicencia}'
+
+class domicilio_persona(BaseModel):
+    colonia = models.CharField(max_length=255)
+    alcaldia = models.CharField(max_length=255)
+    municipio = models.CharField(max_length=255)
+    entidadFederativa = models.CharField(max_length=255)
+    codigoPostal = models.CharField(max_length=255)
+    historical = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo domicilio_persona'
+        verbose_name_plural = 'Modelo tipo domicilio_persona'
+
+    def __str__(self):
+        return f'domicilio personal {self.id}: {self.colonia}'
+
+class instructores(BaseModel):
+    persona = models.ForeignKey(persona, on_delete=models.SET_NULL, null=True)
+    activo = models.BooleanField(default=True)
+    historical = HistoricalRecords()
+
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo domicilio_persona'
+        verbose_name_plural = 'Modelo tipo domicilio_persona'
+
+    def __str__(self):
+        return f'instructores {self.id}: {self.activo}'        
+
+class descripcion_emergencia(BaseModel):
+    descripcionEmergencia = models.JSONField()
+    historical = HistoricalRecords()
+
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo domicilio_persona'
+        verbose_name_plural = 'Modelo tipo domicilio_persona'
+
+    def __str__(self):
+        return f'instructores {self.id}: {self.descripcionEmergencia}'
+
+class solicitud_emergencia(BaseModel):
+    fechaHora = models.DateTimeField()
+    medio = models.ForeignKey(catMedio, on_delete=models.SET_NULL, null=True)
+    institucion = models.ForeignKey(catInstitucion, on_delete=models.SET_NULL, null=True)
+    nombreSolicitante = models.CharField(max_length=255)
+    cargo = models.CharField(max_length=255)
+    telefono = models.CharField(max_length=255)
+    servicio = models.ForeignKey(catServicio, on_delete=models.SET_NULL, null=True)
+    status = models.BooleanField(default=True)
+    descripcionEmergencia = models.ForeignKey(descripcion_emergencia, on_delete=models.SET_NULL, null=True)
+
+    historical = HistoricalRecords()
+
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo domicilio_persona'
+        verbose_name_plural = 'Modelo tipo domicilio_persona'
+
+    def __str__(self):
+        return f'instructores {self.id}: {self.descripcionEmergencia}'
+        
+
+"""
 class solicitante(BaseModel):
     nombre = models.CharField(max_length=255)
     apellido1 = models.CharField(max_length=255)
@@ -299,3 +459,4 @@ class mantenimiento(BaseModel):
 
     def __str__(self):
         return f'mantenimiento {self.id}: {self.fechaInicio} mecanico: {self.nombre}'
+"""

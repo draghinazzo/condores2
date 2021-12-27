@@ -5,7 +5,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from apps.base.api import generalListApiView
-from apps.mision.api.serializers.mision_serializers import misionSerializer, catMedioSerializer, catSolicitanteSerializer,catServicioSerializer, catCargoSerializer, solicitanteSerializer, HelicopterosSerializer, direccionMisionSerializer, bitacoraSerializer, tripulacionSerializer, mantenimientoSerializer, CustomTokenRefreshSerializer, CustomTokenSerializer, HelicopterosSelectSerializer, catSexoSerializer, catTipoeSerializer, MisionMSelectSerializer, MedioSelectSerializer, servicioSelectSerializer, solicitanteSelectSerializer, sexoSelectSerializer, tipoESelectSerializer
+from apps.mision.api.serializers.mision_serializers import catMedioSerializer, catSolicitanteSerializer,catServicioSerializer, catCargoSerializer, CustomTokenRefreshSerializer, CustomTokenSerializer, catSexoSerializer, catTipoeSerializer, MedioSelectSerializer, servicioSelectSerializer, solicitanteSelectSerializer, sexoSelectSerializer, tipoESelectSerializer
+"""
+HelicopterosSelectSerializer, misionSerializer, solicitanteSerializer, HelicopterosSerializer, direccionMisionSerializer, bitacoraSerializer, tripulacionSerializer, mantenimientoSerializer, MisionMSelectSerializer
+"""
 from rest_framework import generics,status
 from rest_framework import viewsets
 from apps.mision.api.filtros.catalogosFilter import catMedioFilters, catCargoFilters, catCServicioFilters, catCSolicitanteFilters, catSexoFilters, catTipoeFilters
@@ -23,7 +26,7 @@ class CustomTokenRefreshView(TokenRefreshView):
     Custom Refresh token View
     """
     serializer_class = CustomTokenRefreshSerializer
-
+"""
 class mantenimientoViewSet(viewsets.ModelViewSet,APIView):
     serializer_class = mantenimientoSerializer
     queryset = mantenimientoSerializer.Meta.model.objects.filter(state = True)
@@ -114,7 +117,7 @@ class direccionMSelectisionViewSet(viewsets.ModelViewSet,APIView):
             mision.save()
             return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
         return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)     
-
+"""
 class medioSelectViewSet(viewsets.ModelViewSet,APIView):
     serializer_class = MedioSelectSerializer
     queryset = MedioSelectSerializer.Meta.model.objects.filter(state = True)
@@ -312,7 +315,7 @@ class catMedioViewSet(viewsets.ModelViewSet,APIView):
             mision.save()
             return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
         return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)
-
+"""
 class misionViewSet(viewsets.ModelViewSet):
     serializer_class = misionSerializer
     queryset = misionSerializer.Meta.model.objects.filter(state = True)
@@ -371,6 +374,6 @@ class misionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
                 mision_serializer.save()
                 return Response(mision_serializer.data, status = status.HTTP_200_OK)
             return Response(mision_serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-
+"""
 
 
