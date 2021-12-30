@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from apps.base.api import generalListApiView
-from apps.mision.api.serializers.mision_serializers import catMedioSerializer, catSolicitanteSerializer,catServicioSerializer, catCargoSerializer, CustomTokenRefreshSerializer, CustomTokenSerializer, catSexoSerializer, catTipoeSerializer, MedioSelectSerializer, servicioSelectSerializer, solicitanteSelectSerializer, sexoSelectSerializer, tipoESelectSerializer
+from apps.mision.api.serializers.mision_serializers import catMedioSerializer, catSolicitanteSerializer,catServicioSerializer, catCargoSerializer, CustomTokenRefreshSerializer, CustomTokenSerializer, catSexoSerializer, catTipoeSerializer, MedioSelectSerializer, servicioSelectSerializer, solicitanteSelectSerializer, sexoSelectSerializer, tipoESelectSerializer, catInstitucionSerializer, personaSerializer, licenciaPersonaSerializer, domiciolioPersonaSerializer, intructoresSerializer, descripcionEmergenciaSerializer, solicitudEmergenciaSerializer, institucionSelectSerializer, puenteEmergenciaSerializer
 """
 HelicopterosSelectSerializer, misionSerializer, solicitanteSerializer, HelicopterosSerializer, direccionMisionSerializer, bitacoraSerializer, tripulacionSerializer, mantenimientoSerializer, MisionMSelectSerializer
 """
@@ -315,6 +315,204 @@ class catMedioViewSet(viewsets.ModelViewSet,APIView):
             mision.save()
             return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
         return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)
+
+class institucionctViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = institucionSelectSerializer
+    queryset = institucionSelectSerializer.Meta.model.objects.filter(state = True)
+    permission_classes = [IsAuthenticated]
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)   
+
+class catInstitucionViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = catInstitucionSerializer
+    queryset = catInstitucionSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)    
+
+class personaViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = personaSerializer
+    queryset = personaSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)  
+
+class licenciaPersonaViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = licenciaPersonaSerializer
+    queryset = licenciaPersonaSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)              
+
+class domiciolioPersonaViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = domiciolioPersonaSerializer
+    queryset = domiciolioPersonaSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)        
+
+class intructoresViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = intructoresSerializer
+    queryset = intructoresSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)    
+
+class descripcionEmergenciaViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = descripcionEmergenciaSerializer
+    queryset = descripcionEmergenciaSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST)  
+
+class solicitudEmergenciaViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = solicitudEmergenciaSerializer
+    queryset = solicitudEmergenciaSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST) 
+
+class puenteEmergenciaViewSet(viewsets.ModelViewSet,APIView):
+    serializer_class = puenteEmergenciaSerializer
+    queryset = puenteEmergenciaSerializer.Meta.model.objects.filter(state = True).order_by('id')
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,]
+    #filterset_class = catMedioFilters
+    #ordering_fields = [
+    #    "id",
+    #    "nombre",
+    #]
+
+    #def list(self, request):
+    #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)
+    #    return Response(medio_serializer.data, status = status.HTTP_200_OK)
+
+    def destroy(self, request,pk=None):
+        mision = self.get_queryset().filter(id=pk).first()
+        if mision:
+            mision.state = False
+            mision.save()
+            return Response({'message': 'mision eliminada correctamente'}, status = status.HTTP_200_OK)
+        return Response({'error': 'No existe dato'}, status = status.HTTP_400_BAD_REQUEST) 
+                       
 """
 class misionViewSet(viewsets.ModelViewSet):
     serializer_class = misionSerializer

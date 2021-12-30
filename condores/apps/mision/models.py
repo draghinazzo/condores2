@@ -139,32 +139,6 @@ class catInstitucion(BaseModel):
     def __str__(self):
         return f'Catalo de instituciones {self.id}: {self.nombre}'  
 
-class persona(BaseModel):
-    nombre = models.CharField(max_length=255)
-    apellido1 = models.CharField(max_length=255)
-    apellido2 = models.CharField(max_length=255)
-    curp = models.CharField(max_length=255)
-    rfc = models.CharField(max_length=255)
-    cuip = models.CharField(max_length=255)
-    cuip = models.CharField(max_length=255)
-    fechaNacimiento = models.DateField(null=True)
-    historical = HistoricalRecords()
-
-    @property
-    def _history_user(self):
-        return self.change_by
-
-    @_history_user.setter
-    def _history_user(self,value):
-        self.chamge_by = value
-
-    class Meta:
-        verbose_name = 'Modelo tipo persona'
-        verbose_name_plural = 'Modelo tipo persona'
-
-    def __str__(self):
-        return f'persona {self.id}: {self.nombre}'
-
 class licencia_persona(BaseModel):
     numeroLicencia = models.CharField(max_length=255)
     vigencia = models.DateField(null=True)
@@ -207,7 +181,37 @@ class domicilio_persona(BaseModel):
         verbose_name_plural = 'Modelo tipo domicilio_persona'
 
     def __str__(self):
-        return f'domicilio personal {self.id}: {self.colonia}'
+        return f'domicilio personal {self.id}: {self.colonia}'   
+
+class persona(BaseModel):
+    numeroEmpleado = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255)
+    apellido1 = models.CharField(max_length=255)
+    apellido2 = models.CharField(max_length=255)
+    curp = models.CharField(max_length=255)
+    rfc = models.CharField(max_length=255)
+    cuip = models.CharField(max_length=255)
+    cuip = models.CharField(max_length=255)
+    fechaNacimiento = models.DateField(null=True)
+    licencia = models.ForeignKey(licencia_persona, on_delete=models.SET_NULL, null=True)
+    domicilio = models.ForeignKey(domicilio_persona, on_delete=models.SET_NULL, null=True)
+
+    historical = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo persona'
+        verbose_name_plural = 'Modelo tipo persona'
+
+    def __str__(self):
+        return f'persona {self.id}: {self.nombre}'
 
 class instructores(BaseModel):
     persona = models.ForeignKey(persona, on_delete=models.SET_NULL, null=True)
@@ -224,11 +228,11 @@ class instructores(BaseModel):
         self.chamge_by = value
 
     class Meta:
-        verbose_name = 'Modelo tipo domicilio_persona'
-        verbose_name_plural = 'Modelo tipo domicilio_persona'
+        verbose_name = 'Modelo tipo instructores'
+        verbose_name_plural = 'Modelo tipo instructores'
 
     def __str__(self):
-        return f'instructores {self.id}: {self.activo}'        
+        return f'instructores {self.id}: {self.activo}'  
 
 class descripcion_emergencia(BaseModel):
     descripcionEmergencia = models.JSONField()
@@ -244,8 +248,8 @@ class descripcion_emergencia(BaseModel):
         self.chamge_by = value
 
     class Meta:
-        verbose_name = 'Modelo tipo domicilio_persona'
-        verbose_name_plural = 'Modelo tipo domicilio_persona'
+        verbose_name = 'Modelo tipo descripcion de emergencia'
+        verbose_name_plural = 'Modelo tipo descripcion de emergencia'
 
     def __str__(self):
         return f'instructores {self.id}: {self.descripcionEmergencia}'
@@ -258,8 +262,7 @@ class solicitud_emergencia(BaseModel):
     cargo = models.CharField(max_length=255)
     telefono = models.CharField(max_length=255)
     servicio = models.ForeignKey(catServicio, on_delete=models.SET_NULL, null=True)
-    status = models.BooleanField(default=True)
-    descripcionEmergencia = models.ForeignKey(descripcion_emergencia, on_delete=models.SET_NULL, null=True)
+    
 
     historical = HistoricalRecords()
 
@@ -273,12 +276,36 @@ class solicitud_emergencia(BaseModel):
         self.chamge_by = value
 
     class Meta:
-        verbose_name = 'Modelo tipo domicilio_persona'
-        verbose_name_plural = 'Modelo tipo domicilio_persona'
+        verbose_name = 'Modelo tipo solicitud de emergencia'
+        verbose_name_plural = 'Modelo tipo solicitud de emergencia'
 
     def __str__(self):
-        return f'instructores {self.id}: {self.descripcionEmergencia}'
-        
+        return f'instructores {self.id}: {self.nombreSolicitante}'
+
+class puente_emergencia(BaseModel):
+    solicitud = models.ForeignKey(solicitud_emergencia, on_delete=models.SET_NULL, null=True)
+    servicio = models.ForeignKey(catServicio, on_delete=models.SET_NULL, null=True)
+    emergencia = models.ForeignKey(descripcion_emergencia, on_delete=models.SET_NULL, null=True)
+    status = models.BooleanField(default=True)
+    
+
+    historical = HistoricalRecords()
+
+
+    @property
+    def _history_user(self):
+        return self.change_by
+
+    @_history_user.setter
+    def _history_user(self,value):
+        self.chamge_by = value
+
+    class Meta:
+        verbose_name = 'Modelo tipo solicitud de emergencia'
+        verbose_name_plural = 'Modelo tipo solicitud de emergencia'
+
+    def __str__(self):
+        return f'instructores {self.id}: {self.nombreSolicitante}'        
 
 """
 class solicitante(BaseModel):
