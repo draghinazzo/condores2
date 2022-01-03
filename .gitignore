@@ -1,7 +1,2 @@
-_pid .gradle
-server\grails-app\conf\application.yml
-client\node_modules
-client\src\doc
-client\src\pdf
 django_rest
 frontV\node_modules

@@ -26,3 +26,28 @@ class placaConsulta():
             return JsonResponse({'data': data})
         else:
             return JsonResponse({'data': data})
+
+class imagenConsulta():
+    def consulta(self, placa):
+        url = "http://admin.sap.ssc.cdmx.gob.mx/api/v1/empleado/"+str(placa)+"/picture"
+        payload={}
+        headers = {
+        'Authorization': 'Token a9a5a809f5370633c92806565f43e4c92cf5bfde'
+        }
+        response = requests.request("GET", url, headers=headers, data=payload)
+        data = [
+                {
+                    'error' : 1,
+                    'data' : 'nada'
+                }
+            ]
+        if response: 
+            data = [
+                {
+                    'error' : 0,
+                    'data' : json.loads(response.text)
+                }
+            ]
+            return JsonResponse({'data': data})
+        else:
+            return JsonResponse({'data': data})

@@ -5,6 +5,7 @@ export default [
       name: "Inicio",
       slug: "dashboard",
   },
+  /*
   {
     url: null,
     name: "Helicopteros",
@@ -18,6 +19,7 @@ export default [
       },
     ],
   },
+  */
   {
     url: null,
     name: "Catalogos",
@@ -59,8 +61,55 @@ export default [
         name: "Solicitante",
         slug: "chat",
       },
+      
+      { 
+        url: '/catalogos/Institucion',
+        name: "Institucion",
+        slug: "chat",
+      },
+      /*
+      { 
+        url: '/catalogos/DomicilioP',
+        name: "Domicilio Persona",
+        slug: "chat",
+      },
+
+      { 
+        url: '/catalogos/licenciaP',
+        name: "Licencia Persona",
+        slug: "chat",
+      },
+      */
+      { 
+        url: '/catalogos/agregaPersonal',
+        name: "Agregar persona",
+        slug: "chat",
+      },
+      { 
+        url: '/catalogos/Personal',
+        name: "Personal",
+        slug: "chat",
+      },
     ]
   },
+  {
+    url: null,
+    name: "Emergencias",
+    icon: "MenuIcon",
+    submenu:[
+      {
+        url: '/emergencia/CapturaE',
+        name: "Captura Emergencia",
+        slug: "chat",
+      },
+      {
+        url: '/misiones/Mantenimiento',
+        name: "Historial de Emergencias",
+        slug: "chat",
+      },
+    ]
+  },
+  /*
   {
     url: null,
     name: "Misiones",
@@ -83,6 +132,7 @@ export default [
       }
     ]
   },
+  
   {
     url: null,
     name: "Capacitacion",
@@ -105,4 +155,5 @@ export default [
       },
     ]
   }
+  */
 ]

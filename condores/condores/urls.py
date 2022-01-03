@@ -4,7 +4,7 @@ from django.urls import path
 from django.urls.conf import include
 from apps.users.api.api import user_api_view, user_details_api_view
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView, TokenVerifyView
-from apps.apiConsulta.placaConsulta import placaConsulta
+from apps.apiConsulta.placaConsulta import placaConsulta, imagenConsulta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,5 +19,6 @@ urlpatterns = [
     path('api/token/refresh2', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('api/tokenC', CustomTokenView.as_view()),
     path('api/Consulta/<int:placa>', placaConsulta.consulta, name='consulta'),
+    path('api/consultaImagen/<int:placa>', imagenConsulta.consulta, name='consultaImagen'),
 
 ]

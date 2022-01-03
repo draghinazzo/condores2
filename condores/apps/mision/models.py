@@ -139,51 +139,9 @@ class catInstitucion(BaseModel):
     def __str__(self):
         return f'Catalo de instituciones {self.id}: {self.nombre}'  
 
-class licencia_persona(BaseModel):
-    numeroLicencia = models.CharField(max_length=255)
-    vigencia = models.DateField(null=True)
-    tipoLicencia = models.CharField(max_length=255)
-    historical = HistoricalRecords()
-
-    @property
-    def _history_user(self):
-        return self.change_by
-
-    @_history_user.setter
-    def _history_user(self,value):
-        self.chamge_by = value
-
-    class Meta:
-        verbose_name = 'Modelo tipo licencia_persona'
-        verbose_name_plural = 'Modelo tipo licencia_persona'
-
-    def __str__(self):
-        return f'licencia persona {self.id}: {self.numeroLicencia}'
-
-class domicilio_persona(BaseModel):
-    colonia = models.CharField(max_length=255)
-    alcaldia = models.CharField(max_length=255)
-    municipio = models.CharField(max_length=255)
-    entidadFederativa = models.CharField(max_length=255)
-    codigoPostal = models.CharField(max_length=255)
-    historical = HistoricalRecords()
-
-    @property
-    def _history_user(self):
-        return self.change_by
-
-    @_history_user.setter
-    def _history_user(self,value):
-        self.chamge_by = value
-
-    class Meta:
-        verbose_name = 'Modelo tipo domicilio_persona'
-        verbose_name_plural = 'Modelo tipo domicilio_persona'
-
-    def __str__(self):
-        return f'domicilio personal {self.id}: {self.colonia}'   
-
 class persona(BaseModel):
+    esInstructor = models.BooleanField()
+    capacidad = models.CharField(max_length=255)
     numeroEmpleado = models.CharField(max_length=255)
     nombre = models.CharField(max_length=255)
     apellido1 = models.CharField(max_length=255)
@@ -193,9 +151,30 @@ class persona(BaseModel):
     cuip = models.CharField(max_length=255)
     cuip = models.CharField(max_length=255)
     fechaNacimiento = models.DateField(null=True)
-    licencia = models.ForeignKey(licencia_persona, on_delete=models.SET_NULL, null=True)
-    domicilio = models.ForeignKey(domicilio_persona, on_delete=models.SET_NULL, null=True)
-
+    grado = models.CharField(max_length=255)
+    telefono = models.CharField(max_length=255)
+    telefono_oficina = models.CharField(max_length=255)
+    extension = models.CharField(max_length=255)
+    telefono_celular = models.CharField(max_length=255)
+    adscripcion_general = models.CharField(max_length=255)
+    correo = models.CharField(max_length=255)
+    descripcion = models.CharField(max_length=255)
+    tipo_empleado = models.ForeignKey(catTipoE, on_delete=models.SET_NULL, null=True)
+    escolaridad = models.CharField(max_length=255)
+    sexo = models.ForeignKey(catSexo, on_delete=models.SET_NULL, null=True)
+    edad = models.CharField(max_length=255)
+    antiguedad = models.CharField(max_length=255)
+    
+    numeroLicencia = models.CharField(max_length=255)
+    vigencia = models.DateField(null=True)
+    tipoLicencia = models.CharField(max_length=255)
+    '''
+    colonia = models.CharField(max_length=255)
+    alcaldia = models.CharField(max_length=255)
+    municipio = models.CharField(max_length=255)
+    entidadFederativa = models.CharField(max_length=255)
+    codigoPostal = models.CharField(max_length=255)
+    '''
     historical = HistoricalRecords()
 
     @property

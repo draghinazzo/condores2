@@ -1,5 +1,5 @@
 <template>
-    <vs-popup class="holamundo" title="Formulario" :active.sync="verL">
+    <vs-popup class="holamundo" title="FormularioCCC" :active.sync="verL">
       <form>
       <vs-row>
         <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="6">
@@ -16,7 +16,7 @@
         <span class="text-danger text-sm" v-show="errors.has('nombreCurso')">{{ errors.first('nombreCurso') }}</span>
 
         Instructor
-        <v-select  stylr="wi" v-model="selecInstructor" :options="options" :dir="$vs.rtl ? 'rtl' : 'ltr'" /><br>
+        <v-select @search="fetchOptions"  stylr="wi" v-model="selecInstructor" :options="options" :dir="$vs.rtl ? 'rtl' : 'ltr'" /> <br>
          <label v-if="mostrarM" class="mensajeE"> Campo necesario</label>
 
         <vs-button type="filled" @click.prevent="submitForm" class="mt-5 block">Guardar</vs-button>
@@ -76,6 +76,11 @@ export default {
   },
 
   methods: {
+    fetchOptions(a) {
+    //this.$router.push({path: a.src })
+    console.log(a)
+  },
+
     getInstructor(){
       servicio.select(this.queryPage)
         .then(response => {

@@ -1,4 +1,4 @@
-from apps.mision.models import catMedio, catSolicitante, catServicio, catCargo, catSexo, catTipoE, catInstitucion, persona, licencia_persona, domicilio_persona, instructores, descripcion_emergencia, solicitud_emergencia, puente_emergencia
+from apps.mision.models import catMedio, catSolicitante, catServicio, catCargo, catSexo, catTipoE, catInstitucion, persona, instructores, descripcion_emergencia, solicitud_emergencia, puente_emergencia
 
 """solicitante, Helicopteros, direccionMision, mision, bitacora, tripulacion, mantenimiento"""
 
@@ -397,36 +397,7 @@ class personaSerializer(serializers.ModelSerializer):
             'cuip': instance.cuip,
             'fechaNacimiento': instance.fechaNacimiento,
             'numeroEmpleado': instance.numeroEmpleado,
-        }
-
-class licenciaPersonaSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = licencia_persona
-        fields = '__all__'
-
-    def to_representation(self, instance):
-        return {
-            'id': instance.id,
-            'numeroLicencia': instance.numeroLicencia,
-            'tipoLicencia': instance.tipoLicencia,
-            'vigencia': instance.vigencia,
-        }
-
-class domiciolioPersonaSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = domicilio_persona
-        fields = '__all__'
-
-    def to_representation(self, instance):
-        return {
-            'id': instance.id,
-            'colonia': instance.colonia,
-            'alcaldia': instance.alcaldia,
-            'municipio': instance.municipio,
-            'codigoPostal': instance.codigoPostal,
-            'entidadFederativa': instance.entidadFederativa,
+            
         }
 
 class intructoresSerializer(serializers.ModelSerializer):

@@ -84,6 +84,57 @@ export default [
             rule: 'admin'
         }
       },
+
+      {
+        path: '/catalogos/Institucion',
+        name: 'Institucion',
+        component: () => import('@/views/catalogo/Institucion'),
+        meta: {
+            requiresAuth: true,
+            rule: 'admin'
+        }
+      },
+
+      {
+        path: '/catalogos/agregaPersonal',
+        name: 'agregarPersonal',
+        component: () => import('@/views/catalogo/agregaPersonal'),
+        meta: {
+            requiresAuth: true,
+            rule: 'admin'
+        }
+      },
+      
+      {
+        path: '/catalogos/Personal',
+        name: 'personal',
+        component: () => import('@/views/catalogo/Personal'),
+        meta: {
+            requiresAuth: true,
+            rule: 'admin'
+        }
+      },
+
+      {
+        path: '/catalogos/DomicilioP',
+        name: 'DomicilioP',
+        component: () => import('@/views/catalogo/DomicilioP'),
+        meta: {
+            requiresAuth: true,
+            rule: 'admin'
+        }
+      },
+
+      {
+        path: '/catalogos/licenciaP',
+        name: 'licenciaP',
+        component: () => import('@/views/catalogo/licenciaP'),
+        meta: {
+            requiresAuth: true,
+            rule: 'admin'
+        }
+      },
+
       {
         path: '/misiones/Mantenimiento',
         name: 'Mantenimiento',
@@ -165,6 +216,16 @@ export default [
         path: '/capacitacion/Capacitacion',
         name: 'Capacitacion',
         component: () => import('@/views/capacitacion/Capacitacion'),
+        meta: {
+          requiresAuth: true,  
+          rule: 'admin',
+        }
+      },
+
+      {
+        path: '/emergencia/CapturaE',
+        name: 'Captura Emergencia',
+        component: () => import('@/views/emergencia/capturaE'),
         meta: {
           requiresAuth: true,  
           rule: 'admin',
