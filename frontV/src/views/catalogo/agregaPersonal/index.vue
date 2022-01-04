@@ -123,6 +123,17 @@
               Sexo
               <v-select  class="selectTa" v-model="selectSexo" :options="optionsSexo" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
             </vs-col>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="3" vs-sm="4" vs-xs="12" >
+              <label> Fecha Nacimiento </label>
+              <flat-pickr placeholder="Fecha de inicio" v-model="form.fechaNacimiento" :config="configdateTimePicker" :disabled='true'/>
+            </vs-col>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
+                <vs-input size="large" v-validate="'required'" label="Capacidades" placeholder="Capacidades" name="Capacidades" v-model="form.capacidad" class="mt-5 w-full" />
+                <span class="text-danger text-sm" v-show="errors.has('capacidad')">{{ errors.first('capacidad') }}</span>
+             </vs-col> 
+             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
+                <vs-checkbox v-model="checkBox1">Es instructor</vs-checkbox>
+             </vs-col> 
 
         </vs-row>
         <vs-button type="filled" @click.prevent="submitForm" class="mt-5 block">Guardar</vs-button>
@@ -137,15 +148,26 @@ import sexoServicio from '@/services/misiones/sexo'
 
 
 import vSelect from 'vue-select'
+import Datepicker from 'vuejs-datepicker';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+import {Spanish as espa} from 'flatpickr/dist/l10n/es.js';
 export default {
 
 
   components: {
+    Datepicker,
+    flatPickr,
     'v-select': vSelect,
     
   },
   data() {
     return {
+        
+      created_date:'2021-10-06',
+      configdateTimePicker: {
+        locale: espa
+      },
       selectSexo: null,
       optionsSexo: [],
       optionsTipoE: [],
@@ -170,6 +192,7 @@ export default {
         descripcion: '',
         escolaridad: '',
         edad: '',
+        fechaNacimiento: '',
         numeroLicencia: '',
         tipoLicencia: '',
         tipo_empleado: '',
@@ -212,7 +235,7 @@ export default {
     getTipoE(){
       tipoEServicio.select(this.queryPage)
         .then(response => {
-          console.log(response.data.results)
+          
           this.$vs.loading.close()
           this.optionsTipoE= response.data.results
         })
@@ -258,6 +281,15 @@ export default {
               this.form.descripcion = response.data.data[0].data.descripcion
               this.form.escolaridad = response.data.data[0].data.escolaridad
               this.form.edad = response.data.data[0].data.edad
+              this.form.fechaNacimiento = response.data.data[0].data.fecha_nacimiento
+
+              var label
+              (response.data.data[0].data.sexo === 1) ? label = 'Masculino': label = 'Femenino'
+              this.selectSexo = {id: response.data.data[0].data.sexo, label: label}
+              var label2
+              (response.data.data[0].data.tipo_empleado === 1) ? label2 = 'Policia': label2 = 'Administrativo'
+              this.selectTipoE = {id: response.data.data[0].data.tipo_empleado, label: label2}
+              
               if (response.data.data[0].error === 1){
                 this.$vs.notify({
                   title:'Error',

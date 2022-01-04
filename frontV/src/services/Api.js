@@ -6,8 +6,8 @@ import axios from 'axios'
 import store from '@/store/store.js'
 
 const instance = axios.create({
-  // baseURL: `http://10.13.123.8:8000/api`
-  baseURL: `http://192.168.1.131:8000/api`
+  baseURL: `http://10.13.123.8:8000/api`
+  // baseURL: `http://192.168.1.131:8000/api`
 
   // baseURL: `http://${process.env.VUE_APP_BASE_URL}`,
   // baseURL: `http://${process.env.VUE_APP_BASE_URL}/api/v1`,
