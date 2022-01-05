@@ -25,7 +25,7 @@
         <b-col lg="4" md="4" sm="12" class="mb-1">
           <b-form-input
             id="nameEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.nombre"
             placeholder="Nombre"
           />
@@ -33,7 +33,7 @@
         <b-col lg="4" md="4" sm="12" class="mb-1">
           <b-form-input
             id="lastFEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.apellido1"
             placeholder="Apellido Paterno"
           />
@@ -41,7 +41,7 @@
         <b-col lg="4" md="4" sm="12" class="mb-1">
           <b-form-input
             id="lastSEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.apellido2"
             placeholder="Apellido Materno"
           />
@@ -52,7 +52,7 @@
         <b-col lg="4" md="4" sm="12" class="mb-1">
           <b-form-input
             id="nameEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.cuip"
             placeholder="CUIP"
           />
@@ -60,7 +60,7 @@
         <b-col lg="4" md="4" sm="12" class="mb-1">
           <b-form-input
             id="lastFEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.rfc"
             placeholder="RFC"
           />
@@ -68,7 +68,7 @@
         <b-col lg="4" md="4" sm="12" class="mb-1">
           <b-form-input
             id="lastSEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.curp"
             placeholder="CURP"
           />
@@ -79,7 +79,7 @@
         <b-col b-col lg="2" md="4" sm="12" class="mb-1">
           <b-form-input
             id="dateSEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.fechaNacimiento"
             placeholder="Fecha Nacimiento"
           />
@@ -87,7 +87,7 @@
         <b-col b-col lg="2" md="4" sm="12" class="mb-1">
           <b-form-input
             id="dateSEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.sexo"
             placeholder="Sexo"
           />
@@ -95,7 +95,7 @@
         <b-col>
           <b-form-input
             id="dateSEmp"
-            disabled="false"
+            :disabled="true"
             v-model="form.adscripcion_general"
             placeholder="Adscripción"
           />
@@ -145,7 +145,7 @@
         <b-col>
           <b-form-checkbox
             id="checkbox-1"
-            v-model="status"
+            v-model="form.esInstructor"
             name="checkbox-1"
             value="accepted"
             unchecked-value="not_accepted"
@@ -189,36 +189,40 @@ export default {
       imagen: "",
       selectTipoE: null,
       form: {
-        capacidad: "",
-        numeroEmpleado: "",
-        nombre: "",
-        apellido1: "",
-        apellido2: "",
-        curp: "",
-        rfc: "",
-        cuip: "",
-        grado: "",
-        telefono: "",
-        telefono_oficina: "",
-        extencion: "",
-        telefono_celular: "",
-        adscripcion_general: "",
-        correo: "",
-        descripcion: "",
-        escolaridad: "",
-        edad: "",
-        fechaNacimiento: "",
-        numeroLicencia: "",
-        tipoLicencia: "",
-        tipo_empleado: "",
-        sexo: "",
-        colonia: "",
-        alcaldia: "",
-        municipio: "",
-        entidadFederativa: "",
-        codigoPostal: "",
+        antiguedad: '',
+        esInstructor:'',
+        vigencia: null,
+        capacidad: null,
+        numeroEmpleado: '',
+        nombre: '',
+        apellido1: '',
+        apellido2: '',
+        curp: '',
+        rfc: '',
+        cuip: '',
+        grado: '',
+        telefono: '',
+        telefono_oficina: '',
+        extension: '',
+        telefono_celular: '',
+        adscripcion_general: '',
+        correo: '',
+        descripcion: '',
+        escolaridad: '',
+        edad: '',
+        fechaNacimiento: '',
+        numeroLicencia: null,
+        tipoLicencia: null,
+        tipo_empleado: '',
+        sexo: '',
+        //colonia: '',
+        //alcaldia: '',
+        //municipio: '',
+        //entidadFederativa: '',
+        //codigoPostal: '',
         state: true,
-        created_date: "2021-10-06",
+        created_date:'2021-10-06'
+
       },
       queryPage: {
         limit: 10,
@@ -283,22 +287,17 @@ export default {
                   response.data.data[0].data
                 );
                 this.form.nombre = response.data.data[0].data.nombre;
-                this.form.apellido1 =
-                  response.data.data[0].data.primer_apellido;
-                this.form.apellido2 =
-                  response.data.data[0].data.segundo_apellido;
+                this.form.apellido1 = response.data.data[0].data.primer_apellido;
+                this.form.apellido2 = response.data.data[0].data.segundo_apellido;
                 this.form.curp = response.data.data[0].data.curp;
                 this.form.rfc = response.data.data[0].data.rfc;
                 this.form.cuip = response.data.data[0].data.cuip;
                 this.form.grado = response.data.data[0].data.grado;
                 this.form.telefono = response.data.data[0].data.telefono;
-                this.form.telefono_oficina =
-                  response.data.data[0].data.telefono_oficina;
+                this.form.telefono_oficina = response.data.data[0].data.telefono_oficina;
                 this.form.extencion = response.data.data[0].data.extension;
-                this.form.telefono_celular =
-                  response.data.data[0].data.telefono_celular;
-                this.form.adscripcion_general =
-                  response.data.data[0].data.adscripcion_general;
+                this.form.telefono_celular = response.data.data[0].data.telefono_celular;
+                this.form.adscripcion_general = response.data.data[0].data.adscripcion_general;
                 this.form.correo = response.data.data[0].data.correo;
                 this.form.descripcion = response.data.data[0].data.descripcion;
                 this.form.escolaridad = response.data.data[0].data.escolaridad;
