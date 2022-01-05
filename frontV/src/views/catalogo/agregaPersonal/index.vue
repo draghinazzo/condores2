@@ -1,330 +1,366 @@
 <template>
-    <vx-card title="Agregar personalaa" id="parentx-demo-5">
-    <form>
-        <vs-row vs-align="flex-end"
-                vs-type="flex" 
-                vs-justify="space-between" vs-w="12">
-
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <img v-if="imagen=== '' " class="foto" src="@/assets/images/portrait/small/avatar-s-8.jpg" />
-                <img v-else class="foto" :src="`data:image/png;base64, ${imagen}`" />
-
-            </vs-col>  
-
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input v-on:blur="consularN" size="large" v-validate="'required'" label="Numero de empleado" placeholder="Numero de empleado" name="Numero de empleado" v-model="form.numeroEmpleado" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('numeroEmpleado')">{{ errors.first('numeroEmpleado') }}</span>
-            </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Apellido1" placeholder="Apellido1" name="Apellido1" v-model="form.apellido1" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('Apellido1')">{{ errors.first('Apellido1') }}</span>
-            </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Apellido2" placeholder="Apellido2" name="Apellido2" v-model="form.apellido2" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('Apellido2')">{{ errors.first('Apellido2') }}</span>
-            </vs-col>
-        </vs-row>
-        <vs-row vs-align="flex-end"
-                vs-type="flex" 
-                vs-justify="space-between" vs-w="12">
-
-             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="CURP" placeholder="CURP" name="CURP" v-model="form.curp" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('CURP')">{{ errors.first('CURP') }}</span>
-             </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="RFC" placeholder="RFC" name="RFC" v-model="form.rfc" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('RFC')">{{ errors.first('RFC') }}</span>
-            </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="CUIP" placeholder="CUIP" name="CUIP" v-model="form.cuip" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('CUIP')">{{ errors.first('CUIP') }}</span>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Grado" placeholder="Grado" name="Grado" v-model="form.grado" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('grado')">{{ errors.first('grado') }}</span>
-             </vs-col>
-
-        </vs-row>
-
-        <vs-row vs-align="flex-end"
-                vs-type="flex" 
-                vs-justify="space-between" vs-w="12">
-
-             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Telefono" placeholder="Telefono" name="Telefono" v-model="form.telefono" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('telefono')">{{ errors.first('telefono') }}</span>
-             </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Telefono de oficina" placeholder="Telefono de oficina" name="Telefono de oficina" v-model="form.telefono_oficina" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('telefono_oficina')">{{ errors.first('telefono_oficina') }}</span>
-            </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Extencion" placeholder="Extencion" name="Extencion" v-model="form.extencion" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('extencion')">{{ errors.first('extencion') }}</span>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Telefono celular" placeholder="Telefono celular" name="Telefono celular" v-model="form.telefono_celular" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('telefono_celular')">{{ errors.first('telefono_celular') }}</span>
-             </vs-col>
-
-        </vs-row>
-
-        <vs-row vs-align="flex-end"
-                vs-type="flex" 
-                vs-justify="space-between" vs-w="12">
-
-             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Adscripcion general" placeholder="Adscripcion general" name="Adscripcion general" v-model="form.adscripcion_general" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('adscripcion_general')">{{ errors.first('adscripcion_general') }}</span>
-             </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Correo" placeholder="Correo" name="Correo" v-model="form.correo" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('correo')">{{ errors.first('correo') }}</span>
-            </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Descipcion" placeholder="Descipcion" name="Descipcion" v-model="form.descripcion" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('descripcion')">{{ errors.first('descripcion') }}</span>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Nivel academico" placeholder="Nivel academico" name="Nivel academico" v-model="form.escolaridad" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('escolaridad')">{{ errors.first('escolaridad') }}</span>
-             </vs-col>
-
-        </vs-row>
-
-        <vs-row vs-align="flex-end"
-                vs-type="flex" 
-                vs-justify="space-between" vs-w="12">
-
-             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Edad" placeholder="Edad" name="Edad" v-model="form.edad" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('edad')">{{ errors.first('edad') }}</span>
-             </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Antiguedad" placeholder="Antiguedad" name="Antiguedad" v-model="form.antiguedad" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('antiguedad')">{{ errors.first('antiguedad') }}</span>
-            </vs-col>    
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Numero de Licencia" placeholder="Numero de Licencia" name="Numero de Licencia" v-model="form.numeroLicencia" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('numeroLicencia')">{{ errors.first('numeroLicencia') }}</span>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                Tipo empleado
-            <v-select  class="selectTa" v-model="selectTipoE" :options="optionsTipoE" :dir="$vs.rtl ? 'rtl' : 'ltr'"/>
-             </vs-col>
-
-        </vs-row>
-        <br>
-        <vs-row vs-align="flex-end"
-                vs-type="flex" 
-                vs-justify="space-between" vs-w="12">
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-              Sexo
-              <v-select  class="selectTa" v-model="selectSexo" :options="optionsSexo" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="3" vs-sm="4" vs-xs="12" >
-              <label> Fecha Nacimiento </label>
-              <flat-pickr placeholder="Fecha de inicio" v-model="form.fechaNacimiento" :config="configdateTimePicker" :disabled='true'/>
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-input size="large" v-validate="'required'" label="Capacidades" placeholder="Capacidades" name="Capacidades" v-model="form.capacidad" class="mt-5 w-full" />
-                <span class="text-danger text-sm" v-show="errors.has('capacidad')">{{ errors.first('capacidad') }}</span>
-             </vs-col> 
-             <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="2">
-                <vs-checkbox v-model="checkBox1">Es instructor</vs-checkbox>
-             </vs-col> 
-
-        </vs-row>
-        <vs-button type="filled" @click.prevent="submitForm" class="mt-5 block">Guardar</vs-button>
-    </form>
+  <div>
+    <vx-card title="Agregar Personal" id="parentx-demo-5">
+      <b-row class="p-2">
+        <b-col lg="8" md="8" sm="12" class="mb-1">
+          <b-form-group label="Numero Empleado" label-for="NumEmp-input">
+            <b-form-input
+              id="numEmp"
+              v-on:blur="consularN"
+              v-model="form.numeroEmpleado"
+              placeholder="Numero Empleado"
+            />
+          </b-form-group>
+        </b-col>
+        <b-col v-if="imagen != ''">
+          <b-img
+            class="imgRedonda"
+            rounded="circle"
+            :src="`data:image/png;base64, ${imagen}`"
+          />
+        </b-col>
+      </b-row>
+      <!-- Datos Nombre -->
+      <b-row class="p-2">
+        <b-col lg="4" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="nameEmp"
+            disabled="false"
+            v-model="form.nombre"
+            placeholder="Nombre"
+          />
+        </b-col>
+        <b-col lg="4" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="lastFEmp"
+            disabled="false"
+            v-model="form.apellido1"
+            placeholder="Apellido Paterno"
+          />
+        </b-col>
+        <b-col lg="4" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="lastSEmp"
+            disabled="false"
+            v-model="form.apellido2"
+            placeholder="Apellido Materno"
+          />
+        </b-col>
+      </b-row>
+      <!-- Datos Unicos Persona -->
+      <b-row class="p-2">
+        <b-col lg="4" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="nameEmp"
+            disabled="false"
+            v-model="form.cuip"
+            placeholder="CUIP"
+          />
+        </b-col>
+        <b-col lg="4" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="lastFEmp"
+            disabled="false"
+            v-model="form.rfc"
+            placeholder="RFC"
+          />
+        </b-col>
+        <b-col lg="4" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="lastSEmp"
+            disabled="false"
+            v-model="form.curp"
+            placeholder="CURP"
+          />
+        </b-col>
+      </b-row>
+      <!-- Datos Persona Mix-->
+      <b-row class="p-2">
+        <b-col b-col lg="2" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="dateSEmp"
+            disabled="false"
+            v-model="form.fechaNacimiento"
+            placeholder="Fecha Nacimiento"
+          />
+        </b-col>
+        <b-col b-col lg="2" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="dateSEmp"
+            disabled="false"
+            v-model="form.sexo"
+            placeholder="Sexo"
+          />
+        </b-col>
+        <b-col>
+          <b-form-input
+            id="dateSEmp"
+            disabled="false"
+            v-model="form.adscripcion_general"
+            placeholder="Adscripción"
+          />
+        </b-col>
+      </b-row>
+      <!-- Datos de contacto -->
+      <b-row class="p-2">
+        <b-col lg="3" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="PhoneLEmp"
+            v-model="form.telefono"
+            placeholder="Telefono Local"
+          />
+        </b-col>
+        <b-col lg="3" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="PhoneMEmp"
+            v-model="form.telefono_celular"
+            placeholder="Telefono Celular"
+          />
+        </b-col>
+        <b-col lg="3" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="PhoneOEmp"
+            v-model="form.telefono_oficina"
+            placeholder="Telefono Oficina"
+          />
+        </b-col>
+        <b-col lg="3" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="PhoneExtEmp"
+            v-model="form.extencion"
+            placeholder="Ext"
+          />
+        </b-col>
+      </b-row>
+      <!-- Contacto Digital -->
+      <b-row class="p-2">
+        <b-col lg="3" md="4" sm="12" class="mb-1">
+          <b-form-input
+            id="EmailEmp"
+            type="email"
+            v-model="form.email"
+            placeholder="Correo Electronico"
+          />
+        </b-col>
+        <b-col>
+          <b-form-checkbox
+            id="checkbox-1"
+            v-model="status"
+            name="checkbox-1"
+            value="accepted"
+            unchecked-value="not_accepted"
+          >
+            El Empleado es instructor
+          </b-form-checkbox>
+        </b-col>
+        <b-button type="filled" @click.prevent="submitForm" class="mt-5 block">
+          Guardar
+        </b-button>
+      </b-row>
     </vx-card>
+  </div>
 </template>
 
 <script>
-import consultaEmpleadoServicio from '@/services/consultaEmpleado'
-import tipoEServicio from '@/services/misiones/tipoE'
-import sexoServicio from '@/services/misiones/sexo'
+import consultaEmpleadoServicio from "@/services/consultaEmpleado";
+import tipoEServicio from "@/services/misiones/tipoE";
+import sexoServicio from "@/services/misiones/sexo";
 
-
-import vSelect from 'vue-select'
-import Datepicker from 'vuejs-datepicker';
-import flatPickr from 'vue-flatpickr-component';
-import 'flatpickr/dist/flatpickr.css';
-import {Spanish as espa} from 'flatpickr/dist/l10n/es.js';
+import vSelect from "vue-select";
+import Datepicker from "vuejs-datepicker";
+import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
+import { Spanish as espa } from "flatpickr/dist/l10n/es.js";
 export default {
-
-
   components: {
     Datepicker,
     flatPickr,
-    'v-select': vSelect,
-    
+    "v-select": vSelect,
   },
   data() {
     return {
-        
-      created_date:'2021-10-06',
+      created_date: "2021-10-06",
       configdateTimePicker: {
-        locale: espa
+        locale: espa,
       },
       selectSexo: null,
       optionsSexo: [],
       optionsTipoE: [],
-      imagen: '',
+      imagen: "",
       selectTipoE: null,
       form: {
-        capacidad: '',
-        numeroEmpleado: '',
-        nombre: '',
-        apellido1: '',
-        apellido2: '',
-        curp: '',
-        rfc: '',
-        cuip: '',
-        grado: '',
-        telefono: '',
-        telefono_oficina: '',
-        extencion: '',
-        telefono_celular: '',
-        adscripcion_general: '',
-        correo: '',
-        descripcion: '',
-        escolaridad: '',
-        edad: '',
-        fechaNacimiento: '',
-        numeroLicencia: '',
-        tipoLicencia: '',
-        tipo_empleado: '',
-        sexo: '',
-        colonia: '',
-        alcaldia: '',
-        municipio: '',
-        entidadFederativa: '',
-        codigoPostal: '',
+        capacidad: "",
+        numeroEmpleado: "",
+        nombre: "",
+        apellido1: "",
+        apellido2: "",
+        curp: "",
+        rfc: "",
+        cuip: "",
+        grado: "",
+        telefono: "",
+        telefono_oficina: "",
+        extencion: "",
+        telefono_celular: "",
+        adscripcion_general: "",
+        correo: "",
+        descripcion: "",
+        escolaridad: "",
+        edad: "",
+        fechaNacimiento: "",
+        numeroLicencia: "",
+        tipoLicencia: "",
+        tipo_empleado: "",
+        sexo: "",
+        colonia: "",
+        alcaldia: "",
+        municipio: "",
+        entidadFederativa: "",
+        codigoPostal: "",
         state: true,
-        created_date:'2021-10-06'
-
+        created_date: "2021-10-06",
       },
       queryPage: {
         limit: 10,
         offset: 0,
-        nombre: ''
+        nombre: "",
       },
-    }
+    };
   },
   mounted() {
-    this.getTipoE()
-    this.getSexo()
-
+    this.getTipoE();
+    this.getSexo();
   },
 
   methods: {
-    getSexo(){
-      sexoServicio.select(this.queryPage)
-        .then(response => {
-          this.$vs.loading.close()
-          this.optionsSexo= response.data.results
+    getSexo() {
+      sexoServicio
+        .select(this.queryPage)
+        .then((response) => {
+          this.$vs.loading.close();
+          this.optionsSexo = response.data.results;
         })
-        .catch(error => {
-          
-          this.$vs.loading.close()
-          console.log(error)
-          })
+        .catch((error) => {
+          this.$vs.loading.close();
+          console.log(error);
+        });
     },
-    getTipoE(){
-      tipoEServicio.select(this.queryPage)
-        .then(response => {
-          
-          this.$vs.loading.close()
-          this.optionsTipoE= response.data.results
+    getTipoE() {
+      tipoEServicio
+        .select(this.queryPage)
+        .then((response) => {
+          this.$vs.loading.close();
+          this.optionsTipoE = response.data.results;
         })
-        .catch(error => {
-          
-          this.$vs.loading.close()
-          console.log(error)
-          })
+        .catch((error) => {
+          this.$vs.loading.close();
+          console.log(error);
+        });
     },
-    submitForm(){
-      console.log('enviar');
+    submitForm() {
+      console.log("enviar");
     },
-    consularN(){
-      this.mostrarM = false
-      this.mostrarM2 = false
-      if(isNaN(this.form.numeroEmpleado) || this.form.numeroEmpleado < 1) {
+    consularN() {
+      this.mostrarM = false;
+      this.mostrarM2 = false;
+      if (isNaN(this.form.numeroEmpleado) || this.form.numeroEmpleado < 1) {
         this.$vs.notify({
-                title:'Error',
-                text:'Error en la placa escrita',
-                color:'danger'})
-      }else{
+          title: "Error",
+          text: "Error en la placa escrita",
+          color: "danger",
+        });
+      } else {
+        this.$vs.loading();
+        consultaEmpleadoServicio
+          .consultarImagen(this.form.numeroEmpleado)
+          .then((response) => {
+            this.imagen = response.data.data[0].data.imagen;
+            consultaEmpleadoServicio
+              .consultarEmpleado(this.form.numeroEmpleado)
+              .then((response) => {
+                console.log(
+                  "response.data.data[0].data",
+                  response.data.data[0].data
+                );
+                this.form.nombre = response.data.data[0].data.nombre;
+                this.form.apellido1 =
+                  response.data.data[0].data.primer_apellido;
+                this.form.apellido2 =
+                  response.data.data[0].data.segundo_apellido;
+                this.form.curp = response.data.data[0].data.curp;
+                this.form.rfc = response.data.data[0].data.rfc;
+                this.form.cuip = response.data.data[0].data.cuip;
+                this.form.grado = response.data.data[0].data.grado;
+                this.form.telefono = response.data.data[0].data.telefono;
+                this.form.telefono_oficina =
+                  response.data.data[0].data.telefono_oficina;
+                this.form.extencion = response.data.data[0].data.extension;
+                this.form.telefono_celular =
+                  response.data.data[0].data.telefono_celular;
+                this.form.adscripcion_general =
+                  response.data.data[0].data.adscripcion_general;
+                this.form.correo = response.data.data[0].data.correo;
+                this.form.descripcion = response.data.data[0].data.descripcion;
+                this.form.escolaridad = response.data.data[0].data.escolaridad;
+                this.form.edad = response.data.data[0].data.edad;
+                this.form.fechaNacimiento =
+                  response.data.data[0].data.fecha_nacimiento;
 
-        this.$vs.loading()
-        consultaEmpleadoServicio.consultarImagen(this.form.numeroEmpleado).then(response => {
+                var label;
+                response.data.data[0].data.sexo === 1
+                  ? (label = "Masculino")
+                  : (label = "Femenino");
+                this.selectSexo = {
+                  id: response.data.data[0].data.sexo,
+                  label: label,
+                };
+                var label2;
+                response.data.data[0].data.tipo_empleado === 1
+                  ? (label2 = "Policia")
+                  : (label2 = "Administrativo");
+                this.selectTipoE = {
+                  id: response.data.data[0].data.tipo_empleado,
+                  label: label2,
+                };
 
-          this.imagen = response.data.data[0].data.imagen
-          consultaEmpleadoServicio.consultarEmpleado(this.form.numeroEmpleado).then(response => {
-          
-              console.log('response.data.data[0].data', response.data.data[0].data)
-              this.form.nombre = response.data.data[0].data.nombre
-              this.form.apellido1 = response.data.data[0].data.primer_apellido
-              this.form.apellido2 = response.data.data[0].data.segundo_apellido
-              this.form.curp = response.data.data[0].data.curp
-              this.form.rfc = response.data.data[0].data.rfc
-              this.form.cuip = response.data.data[0].data.cuip
-              this.form.grado = response.data.data[0].data.grado
-              this.form.telefono = response.data.data[0].data.telefono
-              this.form.telefono_oficina = response.data.data[0].data.telefono_oficina
-              this.form.extencion = response.data.data[0].data.extension
-              this.form.telefono_celular = response.data.data[0].data.telefono_celular
-              this.form.adscripcion_general = response.data.data[0].data.adscripcion_general
-              this.form.correo = response.data.data[0].data.correo
-              this.form.descripcion = response.data.data[0].data.descripcion
-              this.form.escolaridad = response.data.data[0].data.escolaridad
-              this.form.edad = response.data.data[0].data.edad
-              this.form.fechaNacimiento = response.data.data[0].data.fecha_nacimiento
-
-              var label
-              (response.data.data[0].data.sexo === 1) ? label = 'Masculino': label = 'Femenino'
-              this.selectSexo = {id: response.data.data[0].data.sexo, label: label}
-              var label2
-              (response.data.data[0].data.tipo_empleado === 1) ? label2 = 'Policia': label2 = 'Administrativo'
-              this.selectTipoE = {id: response.data.data[0].data.tipo_empleado, label: label2}
-              
-              if (response.data.data[0].error === 1){
-                this.$vs.notify({
-                  title:'Error',
-                  text:'La placa no existe2',
-                  color:'danger'})
-              }
-                this.$vs.loading.close()
+                if (response.data.data[0].error === 1) {
+                  this.$vs.notify({
+                    title: "Error",
+                    text: "La placa no existe2",
+                    color: "danger",
+                  });
+                }
+                this.$vs.loading.close();
+              })
+              .catch((error) => {
+                this.$vs.loading.close();
+                console.log(error);
+              });
           })
-          .catch(error => {
-            this.$vs.loading.close()
-            console.log(error)
-          })
-        }).catch(error => {
-            this.$vs.loading.close()
-            console.log(error)
-        })
-        
-      } 
+          .catch((error) => {
+            this.$vs.loading.close();
+            console.log(error);
+          });
+      }
     },
   },
-  watch: {
-  },
-  computed: {
-  }
-}
+  watch: {},
+  computed: {},
+};
 </script>
 <style lang="scss">
-  .espacio {
+.imgRedonda {
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+}
+.espacio {
   margin-left: 50%;
+}
 
-  }
-
-  .foto {
-    display:block;
-    height:150px;
-    width: 120px;
-  }
+.foto {
+  display: block;
+  height: 150px;
+  width: 120px;
+}
 </style>
