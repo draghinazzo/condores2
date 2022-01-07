@@ -203,8 +203,8 @@ class sexoSelectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {
-            'id': instance.id,
-            'label': instance.sexo,
+            'value': instance.id,
+            'text': instance.sexo,
             #'modelo': instance.modelo,
             #'year': instance.year,
             #'marca': instance.marca,
@@ -219,8 +219,8 @@ class tipoESelectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {
-            'id': instance.id,
-            'label': instance.nombre,
+            'value': instance.id,
+            'text': instance.nombre,
             #'modelo': instance.modelo,
             #'year': instance.year,
             #'marca': instance.marca,
