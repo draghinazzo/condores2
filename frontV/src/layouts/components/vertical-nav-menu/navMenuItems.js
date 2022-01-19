@@ -79,12 +79,13 @@ export default [
         name: "Licencia Persona",
         slug: "chat",
       },
-      */
+      
       { 
         url: '/catalogos/agregaPersonal',
-        name: "Agregar persona",
+        name: "agregaPersonal",
         slug: "chat",
       },
+      */
       { 
         url: '/catalogos/Personal',
         name: "Personal",

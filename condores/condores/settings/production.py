@@ -3,8 +3,8 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.13.123.8', 'localhost', '127.0.0.1']
-#ALLOWED_HOSTS = ['192.168.1.131', 'localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['10.13.123.8', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.1.131', 'localhost', '127.0.0.1']
 
 
 # Database

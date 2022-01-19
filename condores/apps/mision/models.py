@@ -149,7 +149,6 @@ class persona(BaseModel):
     curp = models.CharField(max_length=255,null=True)
     rfc = models.CharField(max_length=255,null=True)
     cuip = models.CharField(max_length=255,null=True)
-    cuip = models.CharField(max_length=255,null=True)
     fechaNacimiento = models.DateField(null=True)
     grado = models.CharField(max_length=255,null=True)
     telefono = models.CharField(max_length=255,null=True)

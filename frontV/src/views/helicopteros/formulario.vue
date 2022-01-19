@@ -28,28 +28,7 @@ import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
 import {Spanish as espa} from 'flatpickr/dist/l10n/es.js';
 import vSelect from 'vue-select'
-import { Validator } from 'vee-validate';
 
-const dict = {
-  custom: {
-    Placa: {
-      required: 'La placa es necesaria'
-    },
-    Modelo: {
-      required: 'El modelo es necesario'
-    },
-    Año: {
-      required: 'El año es necesario'
-    },
-    Marca: {
-      required: 'La marca es necesaria'
-    },
-    Estatus: {
-      required: 'El estatus es necesario'
-    },
-  }
-};
-Validator.localize('en', dict);
 export default {
   components: {
     Datepicker,

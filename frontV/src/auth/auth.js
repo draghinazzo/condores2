@@ -96,8 +96,18 @@ export default [
       },
 
       {
+        path: '/catalogos/agregaPersonalEditar/:id',
+        name: 'agregaPersonalEditar',
+        component: () => import('@/views/catalogo/agregaPersonal/editar'),
+        meta: {
+            requiresAuth: true,
+            rule: 'admin'
+        }
+      },
+
+      {
         path: '/catalogos/agregaPersonal',
-        name: 'agregarPersonal',
+        name: 'agregaPersonal',
         component: () => import('@/views/catalogo/agregaPersonal'),
         meta: {
             requiresAuth: true,

@@ -2,7 +2,7 @@ import Api from '@/services/Api'
 
 export default {
   obtener(params) {
-    return Api().get(`/misiones/persona/?limit=${params.limit}&offset=${params.offset}&nombre=${params.nombre}`)
+    return Api().get(`/misiones/persona/?limit=${params.limit}&offset=${params.offset}&numeroEmpleado=${params.nombre}`)
   },
   crear(params) {
     return Api().post(`/misiones/persona/`, params)
@@ -15,6 +15,9 @@ export default {
   },
   actualizarId(id, params) {
     return Api().put(`/misiones/persona/${id}/`, params)
+  },
+  pagina(params) {
+    return Api().get(`/misiones/persona/?page=${params}`)
   },
 
 }

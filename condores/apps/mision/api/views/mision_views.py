@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from apps.base.api import generalListApiView
 from apps.mision.api.serializers.mision_serializers import catMedioSerializer, catSolicitanteSerializer,catServicioSerializer, catCargoSerializer, CustomTokenRefreshSerializer, CustomTokenSerializer, catSexoSerializer, catTipoeSerializer, MedioSelectSerializer, servicioSelectSerializer, solicitanteSelectSerializer, sexoSelectSerializer, tipoESelectSerializer, catInstitucionSerializer, personaSerializer, intructoresSerializer, descripcionEmergenciaSerializer, solicitudEmergenciaSerializer, institucionSelectSerializer, puenteEmergenciaSerializer
+
 """
 HelicopterosSelectSerializer, misionSerializer, solicitanteSerializer, HelicopterosSerializer, direccionMisionSerializer, bitacoraSerializer, tripulacionSerializer, mantenimientoSerializer, MisionMSelectSerializer
 """
@@ -13,6 +14,7 @@ from rest_framework import generics,status
 from rest_framework import viewsets
 from apps.mision.api.filtros.catalogosFilter import catMedioFilters, catCargoFilters, catCServicioFilters, catCSolicitanteFilters, catSexoFilters, catTipoeFilters
 from django_filters.rest_framework import DjangoFilterBackend
+from apps.mision.api.filtros.misionFilter import personaFilters
 
 
 class CustomTokenView(TokenObtainPairView):
@@ -357,11 +359,11 @@ class personaViewSet(viewsets.ModelViewSet,APIView):
     queryset = personaSerializer.Meta.model.objects.filter(state = True).order_by('id')
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend,]
-    #filterset_class = catMedioFilters
-    #ordering_fields = [
-    #    "id",
-    #    "nombre",
-    #]
+    filterset_class = personaFilters
+    ordering_fields = [
+        "id",
+        "numeroEmpleado",
+    ]
 
     #def list(self, request):
     #    medio_serializer = self.get_serializer(self.get_queryset(), many = True)

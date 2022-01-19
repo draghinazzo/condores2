@@ -1,62 +1,168 @@
 <template>
-      <vx-card title="Servicio" code-toggler id="parentx-demo-5">
-
+  <div>
+    <vx-card title="Servicio" id="parentx-demo-5">
+      <!-- search input -->
       <vs-button @click="abrirFormulario" color="primary" type="filled">Agregar nuevo registro</vs-button>
-      <formulario :ver="active" @cerrar="ocultarVentana" ></formulario>
-      <editar :id="idE" :ver="activeEditar" @cerrar="ocultarVentanaEditar" ></editar>
+      <div class="custom-search d-flex justify-content-end">
+        <b-form-group>
+          <div class="d-flex align-items-center">
+            <label class="mr-1">Buscar</label>
+            <b-form-input
+              v-model="searchTerm"
+              placeholder="Buscar"
+              type="text"
+              @input="buscar"
+            />
+          </div>
+        </b-form-group>
+      </div> 
 
-        <vs-table :sst="true" :max-items="10" search @search="handleSearch" :data="medio">
-            <template slot="thead">
-                <vs-th sort-key="email">id</vs-th>
-                <vs-th sort-key="username">Cargo</vs-th>
-                <vs-th sort-key="username">Acciones</vs-th>
-            </template>
+      <!-- table -->
+      <vue-good-table
+        styleClass="vgt-table"
+        :columns="columns"
+        :rows="medio"
+        :rtl="true"
+        
+        
+      >
+        <template
+          slot="table-row"
+          slot-scope="props"
+        >
 
-            <template slot-scope="{data}">
-                <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+          <!-- Column: Name -->
+          <span
+            v-if="props.column.field === 'fullName'"
+            class="text-nowrap"
+          >
+            <b-avatar
+              :src="props.row.avatar"
+              class="mx-1"
+            />
+            <span class="text-nowrap">{{ props.row.nombre }}</span>
+          </span>
 
-                    <vs-td :data="data[indextr].id">
-                        {{data[indextr].id}}
-                    </vs-td>
+          <!-- Column: Action -->
+          <span v-else-if="props.column.field === 'action'">
+            <span>
+              <b-dropdown
+                variant="link"
+                toggle-class="text-decoration-none"
+                no-caret
+              >
+                <template v-slot:button-content>
+                  <feather-icon
+                    icon="MoreVerticalIcon"
+                    size="16"
+                    class="text-body align-middle mr-25"
+                  />
+                </template>
+                <b-dropdown-item 
+                  @click="abrirEditar(props.row.id)">
+                  <feather-icon
+                    icon="Edit2Icon"
+                    class="mr-50"
+                  />
+                  <span  >Edit</span>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <feather-icon
+                    icon="TrashIcon"
+                    class="mr-50"
+                  />
+                  <span>Delete</span>
+                </b-dropdown-item>
+              </b-dropdown>
+            </span>
+          </span>
+          
+        </template>
 
-                    <vs-td :data="data[indextr].nombre">
-                        {{data[indextr].nombre}}
-                    </vs-td>
+        <!-- pagination -->
+        <template
+          slot="pagination-bottom"
+          slot-scope="props"
+        >
+          <div class="d-flex justify-content-between flex-wrap">
+            
+            <div>
+              <b-pagination
+                :value="totalPaginas"
+                :total-rows="totalPaginas"
+                :per-page="pageLength"
+                first-number
+                last-number
+                align="right"
+                prev-class="prev-item"
+                next-class="next-item"
+                class="mt-1 mb-0"
+                @input="totalPaginas"
+              >
+                <template #prev-text>
+                  <feather-icon
+                    icon="ChevronLeftIcon"
+                    size="18"
+                  />
+                </template>
+                <template #next-text>
+                  <feather-icon
+                    icon="ChevronRightIcon"
+                    size="18"
+                  />
+                </template>
+              </b-pagination>
+            </div>
+          </div>
+        </template>
+      </vue-good-table>
+      <b-pagination-nav
+        :link-gen="linkGen"
+        :number-of-pages="totalPaginas"
+        use-router
+        @input="cambiaP"
+        class="mb-0"
+      />
+    </vx-card>
+    <formulario :ver="active" @cerrar="ocultarVentana" ></formulario>
+    <editar :id="idE" :ver="activeEditar" @cerrar="ocultarVentanaEditar" ></editar>
 
-                    <vs-td :data="data[indextr].id">
-                        <div class="flex">
-                          <vs-button type="border" size="small" icon-pack="feather" @click="abrirEditar(data[indextr].id)" icon="icon-edit-2" color="success" class="mr-2"></vs-button>
-                          <vs-button type="border" size="small" icon-pack="feather" @click="eliminar(data[indextr].id)" icon="icon-trash" color="danger"></vs-button>
-                        </div>
-                    </vs-td>
-
-                    
-                </vs-tr>
-                <vs-row>
-                    <vs-col vs-offset="10" vs-type="flex" vs-justify="center" vs-align="center" vs-w="2" class="sm:p-2 p-4">
-                        <vs-pagination :total="totalPaginas" v-model="currentx"> </vs-pagination>
-                    </vs-col>
-                </vs-row>
-            </template>
-        </vs-table>
-      </vx-card>
+  </div>
 </template>
 <script>
+import {
+  BAvatar, BBadge, BPagination, BFormGroup, BFormInput, BFormSelect, BDropdown, BDropdownItem,
+} from 'bootstrap-vue'
+
 import servicio from '@/services/catalogos/servicio'
 import formulario from'@/views/catalogo/Servicio/formulario.vue'
 import editar from'@/views/catalogo/Servicio/editar.vue'
 
+
+import { VueGoodTable } from 'vue-good-table'
+import 'vue-good-table/dist/vue-good-table.css'
+import { BPaginationNav } from 'bootstrap-vue'
+
 export default {
   components: {
     formulario,
-    editar
+    editar,
+    BPaginationNav,
+    VueGoodTable,
+    BAvatar,
+    BBadge,
+    BPagination,
+    BFormGroup,
+    BFormInput,
+    BFormSelect,
+    BDropdown,
+    BDropdownItem,
   },
   data() {
     return {
       idE: 0,
       activeEditar:false,
       active:false,
-      buscar:'',
       medio: '',
       currentx: 1,
       totalPaginas: 1,
@@ -64,13 +170,45 @@ export default {
         limit: 10,
         offset: 0,
         nombre: ''
-      }
+      },
+      dir: false,
+      columns: [
+        
+        {
+          label: 'Action',
+          field: 'action',
+        },
+        
+        {
+          label: 'Medio',
+          field: 'nombre',
+        },
+        {
+          label: 'Id',
+          field: 'id',
+        },
+        
+      ],
+      searchTerm: '',
     }
   },
   mounted() {
     this.getDatos()
   },
   methods: {
+    cambiaP(pageNum) {
+      console.log('cambiaaa', this.queryPage.offset = pageNum-1)
+      this.queryPage.offset = (pageNum-1)*this.queryPage.limit 
+      this.getDatos()
+    },
+    linkGen(pageNum) {
+      return pageNum === 1 ? '?' : `?page=${pageNum}`
+    },
+    buscar(){
+      console.log('buscar', this.searchTerm)
+      this.queryPage.nombre = this.searchTerm
+      this.getDatos()
+    },
     ocultarVentanaEditar(){
       this.activeEditar = false
       this.getDatos()
@@ -106,6 +244,7 @@ export default {
       console.log('paginaaa', this.currentx)
     },
     getDatos() {
+      console.log('medio')
       this.$vs.loading()
       // const vm = this
       servicio.obtener(this.queryPage)
@@ -123,10 +262,9 @@ export default {
           })
     },
   },
+  computed: {
+  },
   watch: {
-    buscar(){
-      console.log('sasas', this.buscar)
-    },
     currentx () {
       let paginas = []
       for (let index = 0; index < this.totalPaginas; index++) {// lleno un arreglo para tomar la pagina del valor que envia el paginador
@@ -138,3 +276,5 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+</style>
