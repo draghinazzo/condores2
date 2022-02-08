@@ -1,15 +1,13 @@
 <template>
-    <vs-popup class="holamundo" title="Apoyo a unidades en tierra " :active.sync="verL">
+    <vx-card title="Servicio Apoyo  Unidad Pie Tierra" id="parentx-demo-5">
       <form>
         
         
         <vs-input size="large" v-validate="'required'" label="Nombre" placeholder="Nombre" name="Nombre" v-model="form.nombre" class="mt-5 w-full" />
         <span class="text-danger text-sm" v-show="errors.has('Nombre')">{{ errors.first('Nombre') }}</span>
 
-
-        <vs-button type="filled" @click.prevent="submitForm" class="mt-5 block">Guardar</vs-button>
       </form>
-    </vs-popup>
+    </vx-card>
 </template>
 <script>
 
@@ -45,10 +43,6 @@ export default {
     
   },
   props: {
-    ver: {
-      type: Boolean,
-      required: true
-    }
   },
 
   methods: {
@@ -59,14 +53,6 @@ export default {
   watch: {
   },
   computed: {
-    verL: {
-      get () {
-        return this.ver
-      },
-      set (value) {
-        this.$emit('cerrar', value)
-      }
-    }
   }
 }
 </script>

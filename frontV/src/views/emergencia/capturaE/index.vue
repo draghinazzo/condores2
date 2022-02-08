@@ -1,54 +1,83 @@
 <template>
     <vx-card title="Emergencia" id="parentx-demo-5">
-        <form>
-        <vs-row>
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="4" vs-sm="4" vs-xs="12" >
-            <vs-input size="large" v-validate="'required'" label="Nombre solicitante"  placeholder="Nombre solicitante" name="Nombre solicitante" v-model="form.nombreSolicitante" class="mt-5 w-full" />
-            <span class="text-danger text-sm" v-show="errors.has('nombreSolicitante')">{{ errors.first('nombreSolicitante') }}</span>
-          </vs-col>
+        <b-form @submit.stop.prevent="submitForm"> 
+        <b-row class="p-2">
+          <b-col lg="4" md="4" sm="12" class="mb-1">
+            <b-form-group label="Nombre solicitante" label-for="NumEmp-input">
+              <b-form-input
+                id="numEmp"
+                name="nombreSolicitante"
+                v-validate="{ required: true, numeric: true }"
+                v-model="form.nombreSolicitante"
+                placeholder="Nombre solicitante"
+              />
+              <span class="text-danger text-sm"> {{ errors.first('nombreSolicitante') }} </span>
+            </b-form-group>
+          </b-col>
           
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="4" vs-sm="4" vs-xs="12" >
-            <vs-input size="large" v-validate="'required'" label="Cargo"  placeholder="Cargo" name="Cargo" v-model="form.cargo" class="mt-5 w-full" />
-            <span class="text-danger text-sm" v-show="errors.has('cargo')">{{ errors.first('cargo') }}</span>
-          </vs-col>
+          <b-col lg="4" md="4" sm="12" class="mb-1">
 
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="4" vs-sm="4" vs-xs="12" >
-            <vs-input size="large" v-validate="'required'" label="Telefono del solicitante"  placeholder="Telefono del solicitante" name="Telefono del solicitante" v-model="form.telefono" class="mt-5 w-full" />
-            <span class="text-danger text-sm" v-show="errors.has('telefono')">{{ errors.first('telefono') }}</span>
-          </vs-col>
-        </vs-row>
+            <b-form-group label="Cargo" label-for="NumEmp-input">
+              <b-form-input
+                id="numEmp"
+                name="cargo"
+                v-validate="{ required: true, numeric: true }"
+                v-model="form.cargo"
+                placeholder="Cargo"
+              />
+              <span class="text-danger text-sm"> {{ errors.first('cargo') }} </span>
+            </b-form-group>
+          </b-col>
+
+          <b-col lg="4" md="4" sm="12" class="mb-1">
+
+            <b-form-group label="Telefono del solicitante" label-for="NumEmp-input">
+              <b-form-input
+                id="numEmp"
+                name="Telefono del solicitante"
+                v-validate="{ required: true, numeric: true }"
+                v-model="form.telefono"
+                placeholder="telefono"
+              />
+              <span class="text-danger text-sm"> {{ errors.first('telefono') }} </span>
+            </b-form-group>
+          </b-col>
+        </b-row>
           <br>
           <br>
-        <vs-row>
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="4" vs-sm="4" vs-xs="12" >
+        <b-row>
+          <b-col lg="4" md="4" sm="12" class="mb-1">
             <label> Fecha y hora</label>
-            <flat-pickr placeholder="Fecha y hora" v-model="form.fechaHora" :config="configdateTimePicker" />
-            </vs-col>
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="4" vs-sm="4" vs-xs="12" >
+            <flat-pickr class="form-control" placeholder="Fecha y hora" v-model="form.fechaHora" :config="configdateTimePicker" />
+            </b-col>
+            <b-col lg="4" md="4" sm="12" class="mb-1">
               Medio
-              <v-select  class="selectTa" v-model="selectMedio" :options="optionsMedio" :dir="$vs.rtl ? 'rtl' : 'ltr'" />     
-            </vs-col>   
-            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="4" vs-sm="4" vs-xs="12" >
+              <b-form-select  class="selectTa" v-model="selectMedio" :options="optionsMedio" :dir="$vs.rtl ? 'rtl' : 'ltr'" />     
+            </b-col>   
+            <b-col lg="4" md="4" sm="12" class="mb-1">
               Institucion
-              <v-select  class="selectTa" v-model="selectInstitucion" :options="optionsInstitucion" :dir="$vs.rtl ? 'rtl' : 'ltr'" />     
-            </vs-col>   
-        </vs-row>
+              <b-form-select  class="selectTa" v-model="selectInstitucion" :options="optionsInstitucion" :dir="$vs.rtl ? 'rtl' : 'ltr'" />     
+            </b-col>   
+        </b-row>
         <br>
         <br>
-        <vs-row>
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="12" vs-sm="12" vs-xs="12" >
+        <b-row>
+          <b-col lg="3" md="3" sm="12" class="mb-1">
             Servicio
-            <v-select class="selectTa" v-model="selectServicio" :options="optionsServicio" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
-            <vs-button type="border" size="small" icon-pack="feather" @click="abrirFormServicio()" icon="icon-search" color="danger"></vs-button>
-          </vs-col>  
-        </vs-row>
-        <apoyoUT :id="idE" :ver="activeApoyoUT" @cerrar="ocultarVentanaApoyoUT" @formServicio="formServicioA" ></apoyoUT>
-        <ambulanciaA :id="idE" :ver="activeAmbulanciaA" @cerrar="ocultarVentanaAmbulanciaA" @formServicio="formServicioA"></ambulanciaA>
-        <vueloSD :id="idE" :ver="activeVueloSD" @cerrar="ocultarVentanaVueloSD" @formServicio="formServicioA"></vueloSD>
-
+            <b-form-select class="selectTa" @input="abrirFormServicio" v-model="selectServicio" :options="optionsServicio" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+           
+          </b-col>   
+            
+        </b-row>
+        <br><br>
+        <b-row>
+          <apoyoUT v-show="activeApoyoUT" :id="idE"  @cerrar="ocultarVentanaApoyoUT" @formServicio="formServicioA" ></apoyoUT>
+          <ambulanciaA v-show="activeAmbulanciaA"  :id="idE"  @cerrar="ocultarVentanaAmbulanciaA" @formServicio="formServicioA"></ambulanciaA>
+          <vueloSD v-show="activeVueloSD" :id="idE"  @cerrar="ocultarVentanaVueloSD" @formServicio="formServicioA"></vueloSD>
+        </b-row>
         <vs-button type="filled" @click.prevent="submitForm" class="mt-5 block">Guardar</vs-button>
         
-      </form>
+      </b-form>
     </vx-card>
 </template>
 
@@ -110,6 +139,7 @@ export default {
       },
       id: null,
       form: {
+        json:'',
         fechaHora: '',
         cargo: '',
         nombreSolicitante: '',
@@ -141,14 +171,29 @@ export default {
 
     formServicioA(value){
       console.log('formmm', value);
+      this.form.json = value
     },
     abrirFormServicio(){
-      if(this.selectServicio.id === 1){
-        this.activeApoyoUT = true
-      }if(this.selectServicio.id === 2){
-        this.activeAmbulanciaA = true
-      }if(this.selectServicio.id === 3){
+      console.log('sss', this.selectServicio);
+      if(this.selectServicio=== 1){
+        
         this.activeVueloSD = true
+
+        this.activeAmbulanciaA = false
+        this.activeApoyoUT = false
+
+      }if(this.selectServicio=== 3){
+        this.activeAmbulanciaA = true
+        
+        this.activeVueloSD = false
+        this.activeApoyoUT = false
+
+      }if(this.selectServicio=== 2){
+        this.activeApoyoUT = true
+
+        this.activeAmbulanciaA = false
+        this.activeVueloSD = false
+
       }
     },
     getServicio(){
@@ -168,6 +213,7 @@ export default {
         .then(response => {
           this.$vs.loading.close()
           this.optionsMedio= response.data.results
+          console.log('mediooo', this.optionsMedio)
         })
         .catch(error => {
           
@@ -199,7 +245,7 @@ export default {
       return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched])
     },
     submitForm() {
-      console.log('envia datos')
+      console.log('envia datos', this.form)
     }
   },
   watch: {

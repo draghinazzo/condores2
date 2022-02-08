@@ -139,8 +139,8 @@ class MedioSelectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {
-            'id': instance.id,
-            'label': instance.nombre,
+            'value': instance.id,
+            'text': instance.nombre,
             #'modelo': instance.modelo,
             #'year': instance.year,
             #'marca': instance.marca,
@@ -171,8 +171,8 @@ class servicioSelectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {
-            'id': instance.id,
-            'label': instance.nombre,
+            'value': instance.id,
+            'text': instance.nombre,
             #'modelo': instance.modelo,
             #'year': instance.year,
             #'marca': instance.marca,
@@ -360,8 +360,8 @@ class institucionSelectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return {
-            'id': instance.id,
-            'label': instance.nombre,
+            'value': instance.id,
+            'text': instance.nombre,
             #'modelo': instance.modelo,
             #'year': instance.year,
             #'marca': instance.marca,
